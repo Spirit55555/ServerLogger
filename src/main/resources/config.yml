@@ -1,0 +1,10 @@
+enabled: false
+mongodb: "mongodb://localhost:27017"
+db-name: "serverlogs"
+server-name: ""
+timer: 15
+loggers:
+    chat: true
+    command: true
+    playerjoin: true
+    playerquit: true

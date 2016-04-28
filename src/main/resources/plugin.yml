@@ -1,0 +1,6 @@
+main: dk.spirit55555.serverlogger.ServerLogger
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+author: Spirit55555
+website: https://spirit55555.dk
