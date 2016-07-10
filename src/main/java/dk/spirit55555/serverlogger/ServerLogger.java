@@ -30,6 +30,12 @@ public class ServerLogger extends JavaPlugin {
 			return;
 		}
 
+		if (getConfig().getString("server-name").isEmpty()) {
+			getLogger().severe(ChatColor.DARK_RED + "server-name can not be empty, please change it in config.yml");
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		mongo = new MongoClient(new MongoClientURI(getConfig().getString("mongodb", "locahost:27017")));
 		mongoDB = mongo.getDatabase(getConfig().getString("db-name", "serverlogs"));
 
