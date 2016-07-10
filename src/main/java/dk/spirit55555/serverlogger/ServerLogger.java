@@ -4,7 +4,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import dk.spirit55555.serverlogger.loggers.ChatLogger;
-import dk.spirit55555.serverlogger.loggers.CommandLogger;
+import dk.spirit55555.serverlogger.loggers.ConsoleCommandLogger;
+import dk.spirit55555.serverlogger.loggers.PlayerCommandLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerJoinLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerQuitLogger;
 import java.util.ArrayList;
@@ -35,8 +36,11 @@ public class ServerLogger extends JavaPlugin {
 		if (getConfig().getBoolean("loggers.chat"))
 			addLogger(new ChatLogger());
 
-		if (getConfig().getBoolean("loggers.command"))
-			addLogger(new CommandLogger());
+		if (getConfig().getBoolean("loggers.consolecommand"))
+			addLogger(new ConsoleCommandLogger());
+
+		if (getConfig().getBoolean("loggers.playercommand"))
+			addLogger(new PlayerCommandLogger());
 
 		if (getConfig().getBoolean("loggers.playerjoin"))
 			addLogger(new PlayerJoinLogger());
