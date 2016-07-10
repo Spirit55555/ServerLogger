@@ -89,6 +89,6 @@ public class ServerLogger extends JavaPlugin {
 					}
 				}
 			}
-		}.runTaskTimer(this, (getConfig().getInt("timer") * 20), (getConfig().getInt("timer") * 20));
+		}.runTaskTimer(this, (getConfig().getInt("timer", 15) * 20), (getConfig().getInt("timer", 15) * 20));
 	}
 }
