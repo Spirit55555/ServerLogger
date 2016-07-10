@@ -4,12 +4,12 @@ db-name: "serverlogs"
 server-name: ""
 timer: 15
 loggers:
-    chat: true
-    consolecommand: false
-    playercommand: true
-    playerjoin: true
-    playerquit: true
+  chat: true
+  consolecommand: false
+  playercommand: true
+  playerjoin: true
+  playerquit: true
 consolecommand-ignore:
-    - list
-    - save-on
-    - save-all
+  - list
+  - save-on
+  - save-all
