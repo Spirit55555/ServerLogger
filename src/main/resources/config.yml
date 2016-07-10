@@ -5,7 +5,7 @@ server-name: ""
 timer: 15
 loggers:
   chat: true
-  consolecommand: false
+  consolecommand: true
   playercommand: true
   playerjoin: true
   playerquit: true
