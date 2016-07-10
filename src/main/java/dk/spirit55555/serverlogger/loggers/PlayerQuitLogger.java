@@ -1,5 +1,6 @@
 package dk.spirit55555.serverlogger.loggers;
 
+import dk.spirit55555.serverlogger.ILogger;
 import dk.spirit55555.serverlogger.ServerLogger;
 import java.util.ArrayList;
 import org.bson.Document;
@@ -8,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import dk.spirit55555.serverlogger.ILogger;
 
 public class PlayerQuitLogger implements ILogger, Listener {
 	private static final String NAME = "playerquit";
@@ -43,8 +43,8 @@ public class PlayerQuitLogger implements ILogger, Listener {
 		Player player = event.getPlayer();
 
 		Document join = new Document("name", player.getName())
-				.append("uuid", player.getUniqueId().toString())
-				.append("timestamp", plugin.getUnixTimestamp());
+		.append("uuid", player.getUniqueId().toString())
+		.append("timestamp", plugin.getUnixTimestamp());
 
 		quitLogs.add(join);
 	}
