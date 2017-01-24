@@ -46,7 +46,8 @@ public class ConsoleCommandLogger implements ILogger, Listener {
 		//Add a slash, for the sake of consistency with PlayerCommandLogger
 		String command = "/" + event.getCommand();
 
-		Document commandLog = new Document("command", command)
+		Document commandLog = new Document("command_raw", command)
+			.append("command", plugin.removeChatColors(command))
 			.append("timestamp", plugin.getUnixTimestamp());
 
 		consoleCommandLogs.add(commandLog);
