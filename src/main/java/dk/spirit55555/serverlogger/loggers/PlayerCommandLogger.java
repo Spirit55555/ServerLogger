@@ -4,7 +4,6 @@ import dk.spirit55555.serverlogger.ILogger;
 import dk.spirit55555.serverlogger.ServerLogger;
 import java.util.ArrayList;
 import org.bson.Document;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,7 +44,7 @@ public class PlayerCommandLogger implements ILogger, Listener {
 		String command = event.getMessage();
 
 		Document commandLog = new Document("command_raw", command)
-			.append("command", ChatColor.stripColor(command))
+			.append("command", plugin.removeChatColors(command))
 			.append("name", player.getName())
 			.append("uuid", player.getUniqueId().toString())
 			.append("timestamp", plugin.getUnixTimestamp());

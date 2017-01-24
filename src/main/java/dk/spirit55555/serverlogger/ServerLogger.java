@@ -10,8 +10,8 @@ import dk.spirit55555.serverlogger.loggers.PlayerJoinLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerQuitLogger;
 import java.util.ArrayList;
 import java.util.HashSet;
-import net.md_5.bungee.api.ChatColor;
 import org.bson.Document;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -90,5 +90,9 @@ public class ServerLogger extends JavaPlugin {
 				}
 			}
 		}.runTaskTimer(this, (getConfig().getInt("timer", 15) * 20), (getConfig().getInt("timer", 15) * 20));
+	}
+
+	public String removeChatColors(String text) {
+		return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', text));
 	}
 }
