@@ -14,7 +14,7 @@ public class ChatLogger implements ILogger, Listener {
 	private static final String NAME = "chat";
 	private ServerLogger plugin;
 
-	private ArrayList<Document> chatLogs = new ArrayList<Document>();
+	private final ArrayList<Document> chatLogs = new ArrayList<>();
 
 	@Override
 	public void init(ServerLogger plugin) {
@@ -42,11 +42,14 @@ public class ChatLogger implements ILogger, Listener {
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 
-		Document chat = new Document("message_raw", event.getMessage())
-		.append("message", plugin.removeChatColors(event.getMessage()))
-		.append("name", player.getName())
-		.append("uuid", player.getUniqueId().toString())
-		.append("timestamp", plugin.getUnixTimestamp());
+		Document chat = new Document()
+			.append("message_raw", event.getMessage())
+			.append("message", plugin.removeChatColors(event.getMessage()))
+			.append("name", player.getName())
+			.append("uuid", player.getUniqueId().toString())
+			.append("world", player.getWorld().getName())
+			.append("location", plugin.locationToString(player.getLocation()))
+			.append("timestamp", plugin.getUnixTimestamp());
 
 		chatLogs.add(chat);
 	}

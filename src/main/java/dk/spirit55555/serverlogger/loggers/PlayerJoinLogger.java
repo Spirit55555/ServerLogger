@@ -15,7 +15,7 @@ public class PlayerJoinLogger implements ILogger, Listener {
 	private static final String NAME = "playerjoin";
 	private ServerLogger plugin;
 
-	private ArrayList<Document> joinLogs = new ArrayList<Document>();
+	private final ArrayList<Document> joinLogs = new ArrayList<>();
 
 	@Override
 	public void init(ServerLogger plugin) {
@@ -48,11 +48,14 @@ public class PlayerJoinLogger implements ILogger, Listener {
 
 			@Override
 			public void run() {
-				Document join = new Document("name", player.getName())
-				.append("uuid", player.getUniqueId().toString())
-				.append("ip", player.getAddress().getAddress().getHostAddress())
-				.append("local", player.spigot().getLocale())
-				.append("timestamp", plugin.getUnixTimestamp());
+				Document join = new Document()
+					.append("name", player.getName())
+					.append("uuid", player.getUniqueId().toString())
+					.append("ip", player.getAddress().getAddress().getHostAddress())
+					.append("local", player.spigot().getLocale())
+					.append("world", player.getWorld().getName())
+					.append("location", plugin.locationToString(player.getLocation()))
+					.append("timestamp", plugin.getUnixTimestamp());
 
 				joinLogs.add(join);
 			}

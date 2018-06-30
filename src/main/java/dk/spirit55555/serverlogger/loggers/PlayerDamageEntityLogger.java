@@ -8,13 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class PlayerCommandLogger implements ILogger, Listener {
-	private static final String NAME = "playercommand";
+public class PlayerDamageEntityLogger implements ILogger, Listener {
+	private static final String NAME = "playerdamageentity";
 	private ServerLogger plugin;
 
-	private final ArrayList<Document> playerCommandLogs = new ArrayList<>();
+	private final ArrayList<Document> damageLogs = new ArrayList<>();
 
 	@Override
 	public void init(ServerLogger plugin) {
@@ -30,28 +30,38 @@ public class PlayerCommandLogger implements ILogger, Listener {
 
 	@Override
 	public ArrayList<Document> getData() {
-		return playerCommandLogs;
+		return damageLogs;
 	}
 
 	@Override
 	public void resetData() {
-		playerCommandLogs.clear();
+		damageLogs.clear();
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-		Player player = event.getPlayer();
-		String command = event.getMessage();
+	public void playerDeathEvent(EntityDamageByEntityEvent event) {
+		if (!(event.getDamager() instanceof Player))
+			return;
 
-		Document commandLog = new Document()
-			.append("command_raw", command)
-			.append("command", plugin.removeChatColors(command))
+		Player player = (Player) event.getDamager();
+
+		Document deathLog = new Document()
 			.append("name", player.getName())
 			.append("uuid", player.getUniqueId().toString())
 			.append("world", player.getWorld().getName())
 			.append("location", plugin.locationToString(player.getLocation()))
+			.append("damage", event.getFinalDamage())
+			.append("cause", event.getCause().name())
+			.append("damaged_entity", event.getEntity().getType().name())
 			.append("timestamp", plugin.getUnixTimestamp());
 
-		playerCommandLogs.add(commandLog);
+		if (event.getEntity() instanceof Player) {
+			Player damaged = (Player) event.getEntity();
+
+			deathLog.append("damaged_name", damaged.getName())
+				.append("damaged_uuid", damaged.getUniqueId().toString());
+		}
+
+		damageLogs.add(deathLog);
 	}
 }

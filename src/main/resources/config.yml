@@ -6,11 +6,16 @@ timer: 15
 loggers:
   chat: true
   consolecommand: true
+  onlineplayers: true
   playercommand: true
+  playerdamageentity: true
+  playerdeath: true
   playerjoin: true
+  playerkillplayer: true
   playerquit: true
 consolecommand-ignore:
   - list
   - save-on
   - save-all
   - save-off
+onlineplayers-interval: 10

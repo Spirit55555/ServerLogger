@@ -13,7 +13,7 @@ public class ConsoleCommandLogger implements ILogger, Listener {
 	private static final String NAME = "consolecommand";
 	private ServerLogger plugin;
 
-	private ArrayList<Document> consoleCommandLogs = new ArrayList<Document>();
+	private final ArrayList<Document> consoleCommandLogs = new ArrayList<>();
 
 	@Override
 	public void init(ServerLogger plugin) {
@@ -46,7 +46,8 @@ public class ConsoleCommandLogger implements ILogger, Listener {
 		//Add a slash, for the sake of consistency with PlayerCommandLogger
 		String command = "/" + event.getCommand();
 
-		Document commandLog = new Document("command_raw", command)
+		Document commandLog = new Document()
+			.append("command_raw", command)
 			.append("command", plugin.removeChatColors(command))
 			.append("timestamp", plugin.getUnixTimestamp());
 

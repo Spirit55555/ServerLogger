@@ -14,7 +14,7 @@ public class PlayerQuitLogger implements ILogger, Listener {
 	private static final String NAME = "playerquit";
 	private ServerLogger plugin;
 
-	private ArrayList<Document> quitLogs = new ArrayList<Document>();
+	private final ArrayList<Document> quitLogs = new ArrayList<>();
 
 	@Override
 	public void init(ServerLogger plugin) {
@@ -42,9 +42,12 @@ public class PlayerQuitLogger implements ILogger, Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 
-		Document join = new Document("name", player.getName())
-		.append("uuid", player.getUniqueId().toString())
-		.append("timestamp", plugin.getUnixTimestamp());
+		Document join = new Document()
+			.append("name", player.getName())
+			.append("uuid", player.getUniqueId().toString())
+			.append("world", player.getWorld().getName())
+			.append("location", plugin.locationToString(player.getLocation()))
+			.append("timestamp", plugin.getUnixTimestamp());
 
 		quitLogs.add(join);
 	}
