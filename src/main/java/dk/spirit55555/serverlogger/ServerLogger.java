@@ -6,6 +6,8 @@ import com.mongodb.client.MongoDatabase;
 import dk.spirit55555.serverlogger.loggers.ChatLogger;
 import dk.spirit55555.serverlogger.loggers.ConsoleCommandLogger;
 import dk.spirit55555.serverlogger.loggers.OnlinePlayersLogger;
+import dk.spirit55555.serverlogger.loggers.PlayerBlockBreakLogger;
+import dk.spirit55555.serverlogger.loggers.PlayerBlockPlaceLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerCommandLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerDamageEntityLogger;
 import dk.spirit55555.serverlogger.loggers.PlayerDeathLogger;
@@ -52,6 +54,12 @@ public class ServerLogger extends JavaPlugin {
 
 		if (getConfig().getBoolean("loggers.onlineplayers"))
 			addLogger(new OnlinePlayersLogger());
+
+		if (getConfig().getBoolean("loggers.playerblockbreak"))
+			addLogger(new PlayerBlockBreakLogger());
+
+		if (getConfig().getBoolean("loggers.playerblockplace"))
+			addLogger(new PlayerBlockPlaceLogger());
 
 		if (getConfig().getBoolean("loggers.playercommand"))
 			addLogger(new PlayerCommandLogger());
